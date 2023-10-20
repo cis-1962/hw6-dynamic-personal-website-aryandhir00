@@ -16,7 +16,7 @@ const homeSlice = createSlice({
   name: 'home',
   initialState,
   reducers: {
-    toggleButtonVisibility: (state, action: PayloadAction<boolean>) => {
+    setButtonVisibility: (state, action: PayloadAction<boolean>) => {
       state.buttonVisible = action.payload;
     },
     setTextVisibility: (state, action: PayloadAction<boolean>) => {
@@ -41,7 +41,7 @@ const homeSlice = createSlice({
 });
 
 export const {
-  toggleButtonVisibility,
+  setButtonVisibility,
   setTextVisibility,
   setImage,
   setDescription,

@@ -1,24 +1,24 @@
 import React, { useState } from 'react'
 import { useAppSelector, useAppDispatch } from '../app/hooks'
-import { toggleButtonVisibility,setTextVisibility, setImage, setDescription, setSubmitted, setInitialImage, setInitialDescription } from '../features/homeSlice'
+import { setButtonVisibility,setTextVisibility, setImage, setDescription, setSubmitted, setInitialImage, setInitialDescription } from '../features/homeSlice'
 
 export default function Home() {
   const dispatch = useAppDispatch();
   const selector = useAppSelector((state) => state.home);
 
   const handleButtonClick = () => {
-    dispatch(toggleButtonVisibility(false));
+    dispatch(setButtonVisibility(false));
     dispatch(setTextVisibility(true));
     dispatch(setInitialImage(selector.image));
     dispatch(setInitialDescription(selector.description));
   };
   const submit = () => {
-    dispatch(toggleButtonVisibility(true));
+    dispatch(setButtonVisibility(true));
     dispatch(setTextVisibility(false));
     dispatch(setSubmitted(true));
   };
   const cancel = () => {
-    dispatch(toggleButtonVisibility(true));
+    dispatch(setButtonVisibility(true));
     dispatch(setTextVisibility(false));
     dispatch(setImage(selector.image));
     dispatch(setDescription(selector.initialDescription));
