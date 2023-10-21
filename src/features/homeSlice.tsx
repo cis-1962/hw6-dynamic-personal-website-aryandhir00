@@ -2,20 +2,36 @@ import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import type { RootState } from '../app/store'
 
+interface Post {
+  id: number, 
+  name: string;
+  description: string;
+  image: string;
+}
+
 const initialState = {
   buttonVisible: true,
   textVisible: false,
+  addVisible: true,
+  postVisible: false,
   image: '',
   description: '',
   submitted: false,
   initialImage: '',
   initialDescription: '',
+  posts: [] as Post[]
 };
 
 const homeSlice = createSlice({
   name: 'home',
   initialState,
   reducers: {
+    setAddVisibility: (state, action: PayloadAction<boolean>) => {
+      state.addVisible = action.payload;
+    },
+    setPostVisibility: (state, action: PayloadAction<boolean>) => {
+      state.postVisible = action.payload;
+    },
     setButtonVisibility: (state, action: PayloadAction<boolean>) => {
       state.buttonVisible = action.payload;
     },
@@ -37,6 +53,19 @@ const homeSlice = createSlice({
     setInitialDescription: (state, action: PayloadAction<string>) => {
       state.initialDescription = action.payload;
     },
+    addPost: (state, action: PayloadAction<{ id: number, name: string; description: string; image: string }>) => {
+      state.posts.push({
+        id: action.payload.id,
+        name: action.payload.name,
+        description: action.payload.description,
+        image: action.payload.image,
+      });
+    },
+    removePost: (state, action: PayloadAction<number>) => {
+      const postId = action.payload;
+      state.posts = state.posts.filter((post) => post.id !== postId);
+    }
+    
   },
 });
 
@@ -48,11 +77,13 @@ export const {
   setSubmitted,
   setInitialImage,
   setInitialDescription,
+  addPost,
+  setAddVisibility,
+  setPostVisibility,
+  removePost
 } = homeSlice.actions;
 
-export const selectHome = (state: RootState) => state.home
-
-export default homeSlice.reducer;
+export default homeSlice;
 
 
 
